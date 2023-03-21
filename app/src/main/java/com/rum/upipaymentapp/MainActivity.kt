@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Scaffold(topBar = {
                         TopAppBar(title = {
-                            Text(text = "Title")
+                            Text(text = "Pay with UPI")
                         }, navigationIcon = {
                             IconButton(onClick = {}) {
                                 Icon(Icons.Filled.Face, "")
