@@ -12,6 +12,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -46,47 +47,56 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxWidth(), color = Color.White
                 ) {
-                    Scaffold(topBar = {
-                        TopAppBar(title = {
-                            Text(text = "Pay with UPI")
-                        }, navigationIcon = {
-                            IconButton(onClick = {}) {
-                                Icon(Icons.Filled.Face, "")
-                            }
-                        })
-                    }, content = { padding ->
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(16.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            TextField(value = "value", onValueChange = {})
-
-
-                            Button(modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp)
-                                .height(52.dp),
-                                shape = RoundedCornerShape(10.dp),
-                                onClick = {
-                                    payUsingUpi(
-                                        "2.0",
-                                        "9427227884@ybl",
-                                        "Rumit Name",
-                                        "Rumit note",
-                                    )
-
-                                }) {
-                                Text(
-                                    text = "Click here",
-                                    fontSize = 16.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    color = Color.White
+                    Scaffold(
+                        topBar = {
+                            TopAppBar(
+                                title = {
+                                    Text(text = "Pay with UPI")
+                                },
+                                navigationIcon = {
+                                    IconButton(onClick = {}) {
+                                        Icon(Icons.Filled.Face, "")
+                                    }
+                                },
+                            )
+                        },
+                        content = { padding ->
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(16.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                Spacer(modifier = Modifier.height(76.dp))
+                                TextField(
+                                    value = "value",
+                                    label = { Text(text = "label") },
+                                    onValueChange = {}
                                 )
+                                Button(modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp)
+                                    .height(52.dp),
+                                    shape = RoundedCornerShape(10.dp),
+                                    onClick = {
+                                        payUsingUpi(
+                                            "2.0",
+                                            "YOUR_UPI_ID",
+                                            "Rumit Name",
+                                            "Rumit note",
+                                        )
+
+                                    }) {
+                                    Text(
+                                        text = "Click here",
+                                        fontSize = 16.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.White
+                                    )
+                                }
                             }
                         }
-                    })
+                    )
                 }
             }
         }
@@ -94,9 +104,12 @@ class MainActivity : ComponentActivity() {
 
     private fun payUsingUpi(amount: String, upiId: String, name: String, note: String) {
 
-        val uri = Uri.parse("upi://pay").buildUpon().appendQueryParameter("pa", upiId)
-            .appendQueryParameter("pn", name).appendQueryParameter("tn", note)
-            .appendQueryParameter("am", amount).appendQueryParameter("cu", "INR").build()
+        val uri = Uri.parse("upi://pay").buildUpon()
+            .appendQueryParameter("pa", upiId)
+            .appendQueryParameter("pn", name)
+            .appendQueryParameter("tn", note)
+            .appendQueryParameter("am", amount)
+            .appendQueryParameter("cu", "INR").build()
 
 
         val upiPayIntent = Intent(Intent.ACTION_VIEW)
