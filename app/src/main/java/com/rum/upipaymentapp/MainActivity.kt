@@ -12,7 +12,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,7 +19,6 @@ import com.rum.upipaymentapp.ui.theme.UPIPaymentAppTheme
 
 class MainActivity : ComponentActivity() {
 
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -28,12 +26,10 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxWidth(), color = Color.White
                 ) {
-                    PaymentScreen(
-                        onBackArrowPressed = { super.onBackPressed() },
+                    PaymentScreen(onBackArrowPressed = { super.onBackPressed() },
                         onPayNowButtonClicked = { amount, upi, name, note ->
                             payUsingUpi(amount, upi, name, note)
-                        }
-                    )
+                        })
                 }
             }
         }
@@ -41,12 +37,9 @@ class MainActivity : ComponentActivity() {
 
     private fun payUsingUpi(amount: String?, upiId: String?, name: String?, note: String?) {
 
-        val uri = Uri.parse("upi://pay").buildUpon()
-            .appendQueryParameter("pa", upiId)
-            .appendQueryParameter("pn", name)
-            .appendQueryParameter("tn", note)
-            .appendQueryParameter("am", amount)
-            .appendQueryParameter("cu", "INR").build()
+        val uri = Uri.parse("upi://pay").buildUpon().appendQueryParameter("pa", upiId)
+            .appendQueryParameter("pn", name).appendQueryParameter("tn", note)
+            .appendQueryParameter("am", amount).appendQueryParameter("cu", "INR").build()
 
 
         val upiPayIntent = Intent(Intent.ACTION_VIEW)
