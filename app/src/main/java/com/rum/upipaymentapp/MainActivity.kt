@@ -1,9 +1,7 @@
 package com.rum.upipaymentapp
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +14,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.rum.upipaymentapp.ui.theme.UPIPaymentAppTheme
+import com.rum.upipaymentapp.utils.isConnectionAvailable
 
 class MainActivity : ComponentActivity() {
 
@@ -87,7 +86,7 @@ class MainActivity : ComponentActivity() {
         }
 
     private fun upiPaymentDataOperation(data: ArrayList<String>) {
-        if (isConnectionAvailable(this@MainActivity)) {
+        if (isConnectionAvailable()) {
             var str: String? = data[0]
             Log.d("UPIPAY", "upiPaymentDataOperation: " + str!!)
             var paymentCancel = ""
@@ -128,20 +127,6 @@ class MainActivity : ComponentActivity() {
                 "Internet connection is not available. Please check and try again",
                 Toast.LENGTH_SHORT
             ).show()
-        }
-    }
-
-    companion object {
-        fun isConnectionAvailable(context: Context): Boolean {
-            val connectivityManager =
-                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            if (connectivityManager != null) {
-                val netInfo = connectivityManager.activeNetworkInfo
-                if (netInfo != null && netInfo.isConnected && netInfo.isConnectedOrConnecting && netInfo.isAvailable) {
-                    return true
-                }
-            }
-            return false
         }
     }
 }
