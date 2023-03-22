@@ -17,7 +17,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.rum.upipaymentapp.ui.theme.UPIPaymentAppTheme
-import com.rum.upipaymentapp.utils.toast
 
 class MainActivity : ComponentActivity() {
 
