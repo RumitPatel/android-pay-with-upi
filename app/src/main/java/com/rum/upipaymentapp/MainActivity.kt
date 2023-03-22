@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
 
         // check if intent resolves
         if (null != chooser.resolveActivity(packageManager)) {
-            resultLauncher.launch(chooser)
+            upiChooserResultLauncher.launch(chooser)
         } else {
             Toast.makeText(
                 this@MainActivity,
@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private val resultLauncher =
+    private val upiChooserResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             val data: Intent? = result.data
             if (Activity.RESULT_OK == result.resultCode || result.resultCode == 11) {
