@@ -1,9 +1,7 @@
 package com.rum.upipaymentapp
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -11,83 +9,32 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
-import androidx.compose.ui.Alignment
+import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.rum.upipaymentapp.ui.theme.UPIPaymentAppTheme
+import com.rum.upipaymentapp.utils.isConnectionAvailable
 
 class MainActivity : ComponentActivity() {
 
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             UPIPaymentAppTheme {
-                Scaffold(topBar = {
-                    TopAppBar(title = {
-                        Text(text = "Title")
-                    }, navigationIcon = {
-                        IconButton(onClick = {}) {
-                            Icon(Icons.Filled.ArrowBack, "")
-                        }
-                    })
-                }, content = { padding ->
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        TextField(value = "value", onValueChange = {})
-
-
-                        Button(modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp)
-                            .height(52.dp),
-                            shape = RoundedCornerShape(10.dp),
-                            onClick = {
-                                payUsingUpi(
-                                    "2.0",
-                                    "9427227884@ybl",
-                                    "Rumit Name",
-                                    "Rumit note",
-                                )
-
-                            }) {
-                            Text(
-                                text = "Click here",
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color.White
-                            )
-                        }
-                    }
-                })
+                Surface(
+                    modifier = Modifier.fillMaxWidth(), color = Color.White
+                ) {
+                    PaymentScreen(
+                        onPayNowButtonClicked = { amount, upi, name, note ->
+                            payUsingUpi(amount, upi, name, note)
+                        })
+                }
             }
         }
     }
 
-    private fun payUsingUpi(amount: String, upiId: String, name: String, note: String) {
+    private fun payUsingUpi(amount: String?, upiId: String?, name: String?, note: String?) {
 
         val uri = Uri.parse("upi://pay").buildUpon().appendQueryParameter("pa", upiId)
             .appendQueryParameter("pn", name).appendQueryParameter("tn", note)
@@ -102,7 +49,7 @@ class MainActivity : ComponentActivity() {
 
         // check if intent resolves
         if (null != chooser.resolveActivity(packageManager)) {
-            resultLauncher.launch(chooser)
+            upiChooserResultLauncher.launch(chooser)
         } else {
             Toast.makeText(
                 this@MainActivity,
@@ -112,7 +59,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    private val resultLauncher =
+    private val upiChooserResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             val data: Intent? = result.data
             if (Activity.RESULT_OK == result.resultCode || result.resultCode == 11) {
@@ -139,7 +86,7 @@ class MainActivity : ComponentActivity() {
         }
 
     private fun upiPaymentDataOperation(data: ArrayList<String>) {
-        if (isConnectionAvailable(this@MainActivity)) {
+        if (isConnectionAvailable()) {
             var str: String? = data[0]
             Log.d("UPIPAY", "upiPaymentDataOperation: " + str!!)
             var paymentCancel = ""
@@ -180,20 +127,6 @@ class MainActivity : ComponentActivity() {
                 "Internet connection is not available. Please check and try again",
                 Toast.LENGTH_SHORT
             ).show()
-        }
-    }
-
-    companion object {
-        fun isConnectionAvailable(context: Context): Boolean {
-            val connectivityManager =
-                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            if (connectivityManager != null) {
-                val netInfo = connectivityManager.activeNetworkInfo
-                if (netInfo != null && netInfo.isConnected && netInfo.isConnectedOrConnecting && netInfo.isAvailable) {
-                    return true
-                }
-            }
-            return false
         }
     }
 }

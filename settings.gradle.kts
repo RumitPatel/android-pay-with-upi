@@ -12,6 +12,6 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "UPIPaymentApp"
+//rootProject.name = "android-pay-with-upi"
 include(":app")
  
