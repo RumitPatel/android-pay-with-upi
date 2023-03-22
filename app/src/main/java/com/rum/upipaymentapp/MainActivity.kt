@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     PaymentScreen(
                         onBackArrowPressed = { super.onBackPressed() },
-                        onResetButtonClicked = { amount, upi, name, note ->
+                        onPayNowButtonClicked = { amount, upi, name, note ->
                             payUsingUpi(amount, upi, name, note)
                         }
                     )

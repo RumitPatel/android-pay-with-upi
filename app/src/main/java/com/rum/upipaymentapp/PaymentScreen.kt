@@ -33,7 +33,7 @@ import com.rum.upipaymentapp.ui.custom_views.MyTextField
 @Composable
 fun PaymentScreen(
     onBackArrowPressed: () -> Unit = {},
-    onResetButtonClicked: (amount: String?, upi: String?, name: String?, note: String?) -> Unit = { _: String?, _: String?, _: String?, _: String? -> },
+    onPayNowButtonClicked: (amount: String?, upi: String?, name: String?, note: String?) -> Unit = { _: String?, _: String?, _: String?, _: String? -> },
 ) {
 
     var amount by rememberSaveable { mutableStateOf("") }
@@ -143,7 +143,7 @@ fun PaymentScreen(
                     } else if (note.isEmpty()) {
                         isErrorNote = true
                     } else {
-                        onResetButtonClicked(amount, upi, name, note)
+                        onPayNowButtonClicked(amount, upi, name, note)
                     }
 
                 }) {
