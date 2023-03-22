@@ -24,6 +24,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -36,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rum.upipaymentapp.ui.theme.UPIPaymentAppTheme
+import com.rum.upipaymentapp.utils.toast
 
 class MainActivity : ComponentActivity() {
 
@@ -47,7 +49,14 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxWidth(), color = Color.White
                 ) {
-                    Scaffold(
+                    ResetPasswordScreen(
+                        onBackArrowPressed = { super.onBackPressed() },
+                        onResetButtonClicked = { currentPassword, newPassword, confirmNewPassword ->
+                            resetPassword(currentPassword, newPassword, confirmNewPassword)
+                        }
+                    )
+
+                    /*Scaffold(
                         topBar = {
                             TopAppBar(
                                 title = {
@@ -62,15 +71,18 @@ class MainActivity : ComponentActivity() {
                         },
                         content = { padding ->
                             Column(
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(16.dp),
+                                modifier = Modifier.fillMaxSize().padding(16.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Spacer(modifier = Modifier.height(76.dp))
                                 TextField(
                                     value = "value",
                                     label = { Text(text = "label") },
+                                    onValueChange = {}
+                                )
+                                OutlinedTextField(
+                                    value = "value",
+                                    label = { Text("Name") },
                                     onValueChange = {}
                                 )
                                 Button(modifier = Modifier
@@ -96,9 +108,27 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                         }
-                    )
+                    )*/
                 }
             }
+        }
+    }
+
+    private fun resetPassword(
+        currentPassword: String?, newPassword: String?, confirmNewPassword: String?
+    ) {
+        if (!newPassword.equals(confirmNewPassword, true)) {
+            toast(getString(R.string.app_name))
+        } else if (currentPassword.equals(newPassword, true)) {
+            toast(getString(R.string.app_name))
+        } else {
+            toast("Going to reset the password with \ncurrentPassword = $currentPassword\nnewPassword = $newPassword\nconfirmNewPassword = $confirmNewPassword")
+            payUsingUpi(
+                currentPassword!!,
+                newPassword!!,
+                "",
+                ""
+            )
         }
     }
 
