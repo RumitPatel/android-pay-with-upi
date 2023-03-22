@@ -30,8 +30,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.rum.upipaymentapp.ui.custom_views.MyTextField
 import com.rum.upipaymentapp.ui.custom_views.MyText
+import com.rum.upipaymentapp.ui.custom_views.MyTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,15 +41,12 @@ fun ResetPasswordScreen(
 ) {
 
     var currentPassword by rememberSaveable { mutableStateOf("") }
-    var currentPasswordVisible by rememberSaveable { mutableStateOf(false) }
     var isErrorCurrentPassword by rememberSaveable { mutableStateOf(false) }
 
     var newPassword by rememberSaveable { mutableStateOf("") }
-    var newPasswordVisible by rememberSaveable { mutableStateOf(false) }
     var isErrorNewPassword by rememberSaveable { mutableStateOf(false) }
 
     var confirmNewPassword by rememberSaveable { mutableStateOf("") }
-    var confirmNewPasswordVisible by rememberSaveable { mutableStateOf(false) }
     var isErrorConfirmNewPassword by rememberSaveable { mutableStateOf(false) }
 
 
