@@ -71,7 +71,7 @@ fun ResetPasswordScreen(
             MyTextField(
                 value = amount,
                 isError = isErrorAmount,
-                errorMessage = stringResource(R.string.app_name),
+                errorMessage = stringResource(R.string.err_amount),
                 placeholder = stringResource(R.string.amount_place_holder),
                 label = stringResource(R.string.amount),
                 onValueChange = {
@@ -86,7 +86,7 @@ fun ResetPasswordScreen(
             MyTextField(
                 value = upi,
                 isError = isErrorUpi,
-                errorMessage = stringResource(R.string.app_name),
+                errorMessage = stringResource(R.string.err_upi),
                 placeholder = stringResource(R.string.upi_place_holder),
                 label = stringResource(R.string.upi),
                 onValueChange = {
@@ -101,7 +101,7 @@ fun ResetPasswordScreen(
             MyTextField(
                 value = name,
                 isError = isErrorName,
-                errorMessage = stringResource(R.string.app_name),
+                errorMessage = stringResource(R.string.err_name),
                 placeholder = stringResource(R.string.name_place_holder),
                 label = stringResource(R.string.name),
                 onValueChange = {
@@ -116,7 +116,7 @@ fun ResetPasswordScreen(
             MyTextField(
                 value = name,
                 isError = isErrorName,
-                errorMessage = stringResource(R.string.app_name),
+                errorMessage = stringResource(R.string.err_note),
                 placeholder = stringResource(R.string.note_place_holder),
                 label = stringResource(R.string.note),
                 onValueChange = {
