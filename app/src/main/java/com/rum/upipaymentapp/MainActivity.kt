@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxWidth(), color = Color.White
                 ) {
-                    PaymentScreen(onBackArrowPressed = { super.onBackPressed() },
+                    PaymentScreen(
                         onPayNowButtonClicked = { amount, upi, name, note ->
                             payUsingUpi(amount, upi, name, note)
                         })

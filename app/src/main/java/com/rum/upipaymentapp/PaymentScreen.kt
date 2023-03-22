@@ -32,7 +32,6 @@ import com.rum.upipaymentapp.ui.custom_views.MyTextField
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PaymentScreen(
-    onBackArrowPressed: () -> Unit = {},
     onPayNowButtonClicked: (amount: String?, upi: String?, name: String?, note: String?) -> Unit = { _: String?, _: String?, _: String?, _: String? -> },
 ) {
 
