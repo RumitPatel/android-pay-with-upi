@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     ResetPasswordScreen(
                         onBackArrowPressed = { super.onBackPressed() },
                         onResetButtonClicked = { amount, upi, name, note ->
-                            resetPassword(amount, upi, name, note)
+                            payUsingUpi(amount, upi, name, note)
                         }
                     )
 
@@ -92,17 +92,6 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-    }
-
-    private fun resetPassword(
-        amount: String?, upi: String?, name: String?, note: String?
-    ) {
-        payUsingUpi(
-            amount,
-            upi,
-            name,
-            note
-        )
     }
 
     private fun payUsingUpi(amount: String?, upiId: String?, name: String?, note: String?) {
