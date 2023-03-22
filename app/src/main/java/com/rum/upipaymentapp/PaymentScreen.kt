@@ -33,7 +33,7 @@ import com.rum.upipaymentapp.ui.custom_views.MyTextField
 @Composable
 fun ResetPasswordScreen(
     onBackArrowPressed: () -> Unit = {},
-    onResetButtonClicked: (currentPassword: String?, newPassword: String?, confirmNewPassword: String?) -> Unit = { _: String?, _: String?, _: String? -> },
+    onResetButtonClicked: (amount: String?, upi: String?, name: String?, note: String?) -> Unit = { _: String?, _: String?, _: String?, _: String? -> },
 ) {
 
     var amount by rememberSaveable { mutableStateOf("") }
@@ -94,7 +94,7 @@ fun ResetPasswordScreen(
                     isErrorUpi = false
                 },
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Text, imeAction = ImeAction.Next
+                    keyboardType = KeyboardType.Email, imeAction = ImeAction.Next
                 )
             )
 
@@ -114,8 +114,8 @@ fun ResetPasswordScreen(
             )
 
             MyTextField(
-                value = name,
-                isError = isErrorName,
+                value = note,
+                isError = isErrorNote,
                 errorMessage = stringResource(R.string.err_note),
                 placeholder = stringResource(R.string.note_place_holder),
                 label = stringResource(R.string.note),
@@ -140,8 +140,10 @@ fun ResetPasswordScreen(
                         isErrorUpi = true
                     } else if (name.isEmpty()) {
                         isErrorName = true
+                    } else if (note.isEmpty()) {
+                        isErrorNote = true
                     } else {
-                        onResetButtonClicked(amount, upi, name)
+                        onResetButtonClicked(amount, upi, name, note)
                     }
 
                 }) {
