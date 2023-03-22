@@ -2,7 +2,11 @@
     <string name="app_name">UPIPaymentApp</string>
 
     <string name="amount">Amount</string>
+    <string name="amount_place_holder">Enter Amount</string>
     <string name="upi">UPI</string>
+    <string name="upi_place_holder">Enter UPI (9898989898@upi)</string>
     <string name="name">name</string>
+    <string name="name_place_holder">Enter name</string>
     <string name="note">note</string>
+    <string name="note_place_holder">Enter your notes</string>
 </resources>

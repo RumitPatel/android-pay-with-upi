@@ -72,14 +72,14 @@ fun ResetPasswordScreen(
                 value = amount,
                 isError = isErrorAmount,
                 errorMessage = stringResource(R.string.app_name),
-                placeholder = stringResource(R.string.app_name),
+                placeholder = stringResource(R.string.amount_place_holder),
                 label = stringResource(R.string.amount),
                 onValueChange = {
                     amount = it
                     isErrorAmount = false
                 },
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Text, imeAction = ImeAction.Next
+                    keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Next
                 )
             )
 
@@ -87,7 +87,7 @@ fun ResetPasswordScreen(
                 value = upi,
                 isError = isErrorUpi,
                 errorMessage = stringResource(R.string.app_name),
-                placeholder = stringResource(R.string.app_name),
+                placeholder = stringResource(R.string.upi_place_holder),
                 label = stringResource(R.string.upi),
                 onValueChange = {
                     upi = it
@@ -102,7 +102,7 @@ fun ResetPasswordScreen(
                 value = name,
                 isError = isErrorName,
                 errorMessage = stringResource(R.string.app_name),
-                placeholder = stringResource(R.string.app_name),
+                placeholder = stringResource(R.string.name_place_holder),
                 label = stringResource(R.string.name),
                 onValueChange = {
                     name = it
@@ -117,7 +117,7 @@ fun ResetPasswordScreen(
                 value = name,
                 isError = isErrorName,
                 errorMessage = stringResource(R.string.app_name),
-                placeholder = stringResource(R.string.app_name),
+                placeholder = stringResource(R.string.note_place_holder),
                 label = stringResource(R.string.note),
                 onValueChange = {
                     note = it
