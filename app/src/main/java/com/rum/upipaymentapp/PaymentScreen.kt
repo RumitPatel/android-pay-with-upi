@@ -5,7 +5,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -55,8 +55,8 @@ fun PaymentScreen(
                 MyText(text = stringResource(R.string.app_name))
             },
             navigationIcon = {
-                IconButton(onClick = onBackArrowPressed) {
-                    Icon(Icons.Filled.ArrowBack, "")
+                IconButton(onClick = {}) {
+                    Icon(Icons.Filled.Face, "")
                 }
             },
         )
