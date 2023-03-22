@@ -68,27 +68,7 @@ fun ResetPasswordScreen(
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painterResource(id = R.drawable.ic_launcher_background),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(80.dp)
-                    .padding(8.dp),
-                contentScale = ContentScale.Crop
-            )
-            MyText(
-                modifier = Modifier.padding(2.dp),
-                text = stringResource(R.string.app_name),
-                fontWeight = FontWeight.Bold,
-                fontSize = 28.sp
-            )
-            MyText(
-                modifier = Modifier.padding(12.dp),
-                textAlign = TextAlign.Center,
-                text = stringResource(R.string.app_name),
-                fontSize = 18.sp,
-            )
-
+            Spacer(modifier = Modifier.height(80.dp))
             MyTextField(
                 value = currentPassword,
                 isError = isErrorCurrentPassword,
