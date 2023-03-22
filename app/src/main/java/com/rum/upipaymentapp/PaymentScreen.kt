@@ -36,14 +36,17 @@ fun ResetPasswordScreen(
     onResetButtonClicked: (currentPassword: String?, newPassword: String?, confirmNewPassword: String?) -> Unit = { _: String?, _: String?, _: String? -> },
 ) {
 
-    var currentPassword by rememberSaveable { mutableStateOf("") }
-    var isErrorCurrentPassword by rememberSaveable { mutableStateOf(false) }
+    var amount by rememberSaveable { mutableStateOf("") }
+    var isErrorAmount by rememberSaveable { mutableStateOf(false) }
 
-    var newPassword by rememberSaveable { mutableStateOf("") }
-    var isErrorNewPassword by rememberSaveable { mutableStateOf(false) }
+    var upi by rememberSaveable { mutableStateOf("") }
+    var isErrorUpi by rememberSaveable { mutableStateOf(false) }
 
-    var confirmNewPassword by rememberSaveable { mutableStateOf("") }
-    var isErrorConfirmNewPassword by rememberSaveable { mutableStateOf(false) }
+    var name by rememberSaveable { mutableStateOf("") }
+    var isErrorName by rememberSaveable { mutableStateOf(false) }
+
+    var note by rememberSaveable { mutableStateOf("") }
+    var isErrorNote by rememberSaveable { mutableStateOf(false) }
 
 
     Scaffold(topBar = {
@@ -66,47 +69,62 @@ fun ResetPasswordScreen(
         ) {
             Spacer(modifier = Modifier.height(80.dp))
             MyTextField(
-                value = currentPassword,
-                isError = isErrorCurrentPassword,
+                value = amount,
+                isError = isErrorAmount,
                 errorMessage = stringResource(R.string.app_name),
                 placeholder = stringResource(R.string.app_name),
-                label = stringResource(R.string.app_name),
+                label = stringResource(R.string.amount),
                 onValueChange = {
-                    currentPassword = it
-                    isErrorCurrentPassword = false
+                    amount = it
+                    isErrorAmount = false
                 },
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Password, imeAction = ImeAction.Next
+                    keyboardType = KeyboardType.Text, imeAction = ImeAction.Next
                 )
             )
 
             MyTextField(
-                value = newPassword,
-                isError = isErrorNewPassword,
+                value = upi,
+                isError = isErrorUpi,
                 errorMessage = stringResource(R.string.app_name),
                 placeholder = stringResource(R.string.app_name),
-                label = stringResource(R.string.app_name),
+                label = stringResource(R.string.upi),
                 onValueChange = {
-                    newPassword = it
-                    isErrorNewPassword = false
+                    upi = it
+                    isErrorUpi = false
                 },
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Password, imeAction = ImeAction.Next
+                    keyboardType = KeyboardType.Text, imeAction = ImeAction.Next
                 )
             )
 
             MyTextField(
-                value = confirmNewPassword,
-                isError = isErrorConfirmNewPassword,
+                value = name,
+                isError = isErrorName,
                 errorMessage = stringResource(R.string.app_name),
                 placeholder = stringResource(R.string.app_name),
-                label = stringResource(R.string.app_name),
+                label = stringResource(R.string.name),
                 onValueChange = {
-                    confirmNewPassword = it
-                    isErrorConfirmNewPassword = false
+                    name = it
+                    isErrorName = false
                 },
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Password, imeAction = ImeAction.Done
+                    keyboardType = KeyboardType.Text, imeAction = ImeAction.Next
+                )
+            )
+
+            MyTextField(
+                value = name,
+                isError = isErrorName,
+                errorMessage = stringResource(R.string.app_name),
+                placeholder = stringResource(R.string.app_name),
+                label = stringResource(R.string.note),
+                onValueChange = {
+                    note = it
+                    isErrorNote = false
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Text, imeAction = ImeAction.Done
                 )
             )
 
@@ -116,14 +134,14 @@ fun ResetPasswordScreen(
                 .height(52.dp),
                 shape = RoundedCornerShape(10.dp),
                 onClick = {
-                    if (currentPassword.isEmpty()) {
-                        isErrorCurrentPassword = true
-                    } else if (newPassword.isEmpty()) {
-                        isErrorNewPassword = true
-                    } else if (confirmNewPassword.isEmpty()) {
-                        isErrorConfirmNewPassword = true
+                    if (amount.isEmpty()) {
+                        isErrorAmount = true
+                    } else if (upi.isEmpty()) {
+                        isErrorUpi = true
+                    } else if (name.isEmpty()) {
+                        isErrorName = true
                     } else {
-                        onResetButtonClicked(currentPassword, newPassword, confirmNewPassword)
+                        onResetButtonClicked(amount, upi, name)
                     }
 
                 }) {
