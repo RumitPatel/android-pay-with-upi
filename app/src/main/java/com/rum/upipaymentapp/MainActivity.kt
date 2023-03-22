@@ -11,31 +11,11 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.rum.upipaymentapp.ui.theme.UPIPaymentAppTheme
 import com.rum.upipaymentapp.utils.toast
 
@@ -51,8 +31,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     ResetPasswordScreen(
                         onBackArrowPressed = { super.onBackPressed() },
-                        onResetButtonClicked = { currentPassword, newPassword, confirmNewPassword ->
-                            resetPassword(currentPassword, newPassword, confirmNewPassword)
+                        onResetButtonClicked = { amount, upi, name, note ->
+                            resetPassword(amount, upi, name, note)
                         }
                     )
 
@@ -115,24 +95,17 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun resetPassword(
-        currentPassword: String?, newPassword: String?, confirmNewPassword: String?
+        amount: String?, upi: String?, name: String?, note: String?
     ) {
-        if (!newPassword.equals(confirmNewPassword, true)) {
-            toast(getString(R.string.app_name))
-        } else if (currentPassword.equals(newPassword, true)) {
-            toast(getString(R.string.app_name))
-        } else {
-            toast("Going to reset the password with \ncurrentPassword = $currentPassword\nnewPassword = $newPassword\nconfirmNewPassword = $confirmNewPassword")
-            payUsingUpi(
-                currentPassword!!,
-                newPassword!!,
-                "",
-                ""
-            )
-        }
+        payUsingUpi(
+            amount,
+            upi,
+            name,
+            note
+        )
     }
 
-    private fun payUsingUpi(amount: String, upiId: String, name: String, note: String) {
+    private fun payUsingUpi(amount: String?, upiId: String?, name: String?, note: String?) {
 
         val uri = Uri.parse("upi://pay").buildUpon()
             .appendQueryParameter("pa", upiId)
