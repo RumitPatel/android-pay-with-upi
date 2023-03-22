@@ -7,11 +7,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -25,9 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,9 +30,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import com.rum.upipaymentapp.ui.custom_views.MyPasswordTextField
+import com.rum.upipaymentapp.ui.custom_views.MyTextField
 import com.rum.upipaymentapp.ui.custom_views.MyText
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -62,13 +54,15 @@ fun ResetPasswordScreen(
 
 
     Scaffold(topBar = {
-        TopAppBar(title = {
-            MyText(text = stringResource(R.string.app_name))
-        }, navigationIcon = {
-            IconButton(onClick = onBackArrowPressed) {
-                Icon(Icons.Filled.ArrowBack, "")
-            }
-        },
+        TopAppBar(
+            title = {
+                MyText(text = stringResource(R.string.app_name))
+            },
+            navigationIcon = {
+                IconButton(onClick = onBackArrowPressed) {
+                    Icon(Icons.Filled.ArrowBack, "")
+                }
+            },
         )
     }, content = { padding ->
         Column(
@@ -98,10 +92,10 @@ fun ResetPasswordScreen(
                 fontSize = 18.sp,
             )
 
-            MyPasswordTextField(value = currentPassword,
+            MyTextField(
+                value = currentPassword,
                 isError = isErrorCurrentPassword,
                 errorMessage = stringResource(R.string.app_name),
-                valueVisibility = currentPasswordVisible,
                 placeholder = stringResource(R.string.app_name),
                 label = stringResource(R.string.app_name),
                 onValueChange = {
@@ -110,20 +104,13 @@ fun ResetPasswordScreen(
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password, imeAction = ImeAction.Next
-                ),
-                trailingIcon = {
-                    val image = getPasswordToggleIcon(currentPasswordVisible)
-                    val description = getPasswordToggleDescription(confirmNewPasswordVisible)
+                )
+            )
 
-                    IconButton(onClick = { currentPasswordVisible = !currentPasswordVisible }) {
-                        Icon(imageVector = image, description)
-                    }
-                })
-
-            MyPasswordTextField(value = newPassword,
+            MyTextField(
+                value = newPassword,
                 isError = isErrorNewPassword,
                 errorMessage = stringResource(R.string.app_name),
-                valueVisibility = newPasswordVisible,
                 placeholder = stringResource(R.string.app_name),
                 label = stringResource(R.string.app_name),
                 onValueChange = {
@@ -132,20 +119,13 @@ fun ResetPasswordScreen(
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password, imeAction = ImeAction.Next
-                ),
-                trailingIcon = {
-                    val image = getPasswordToggleIcon(newPasswordVisible)
-                    val description = getPasswordToggleDescription(confirmNewPasswordVisible)
+                )
+            )
 
-                    IconButton(onClick = { newPasswordVisible = !newPasswordVisible }) {
-                        Icon(imageVector = image, description)
-                    }
-                })
-
-            MyPasswordTextField(value = confirmNewPassword,
+            MyTextField(
+                value = confirmNewPassword,
                 isError = isErrorConfirmNewPassword,
                 errorMessage = stringResource(R.string.app_name),
-                valueVisibility = confirmNewPasswordVisible,
                 placeholder = stringResource(R.string.app_name),
                 label = stringResource(R.string.app_name),
                 onValueChange = {
@@ -154,17 +134,8 @@ fun ResetPasswordScreen(
                 },
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password, imeAction = ImeAction.Done
-                ),
-                trailingIcon = {
-                    val image = getPasswordToggleIcon(confirmNewPasswordVisible)
-                    val description = getPasswordToggleDescription(confirmNewPasswordVisible)
-
-                    IconButton(onClick = {
-                        confirmNewPasswordVisible = !confirmNewPasswordVisible
-                    }) {
-                        Icon(imageVector = image, description)
-                    }
-                })
+                )
+            )
 
             Button(modifier = Modifier
                 .fillMaxWidth()
@@ -192,14 +163,4 @@ fun ResetPasswordScreen(
             }
         }
     })
-}
-
-
-fun getPasswordToggleIcon(isVisible: Boolean): ImageVector {
-    return if (isVisible) Icons.Filled.Visibility
-    else Icons.Filled.VisibilityOff
-}
-
-fun getPasswordToggleDescription(isVisible: Boolean): String {
-    return if (isVisible) "Hide password" else "Show password"
 }
