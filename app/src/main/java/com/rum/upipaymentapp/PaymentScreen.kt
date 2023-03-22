@@ -31,7 +31,7 @@ import com.rum.upipaymentapp.ui.custom_views.MyTextField
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ResetPasswordScreen(
+fun PaymentScreen(
     onBackArrowPressed: () -> Unit = {},
     onResetButtonClicked: (amount: String?, upi: String?, name: String?, note: String?) -> Unit = { _: String?, _: String?, _: String?, _: String? -> },
 ) {
@@ -148,7 +148,7 @@ fun ResetPasswordScreen(
 
                 }) {
                 MyText(
-                    text = stringResource(R.string.app_name).uppercase(),
+                    text = stringResource(R.string.pay_now).uppercase(),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White

@@ -28,66 +28,12 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxWidth(), color = Color.White
                 ) {
-                    ResetPasswordScreen(
+                    PaymentScreen(
                         onBackArrowPressed = { super.onBackPressed() },
                         onResetButtonClicked = { amount, upi, name, note ->
                             payUsingUpi(amount, upi, name, note)
                         }
                     )
-
-                    /*Scaffold(
-                        topBar = {
-                            TopAppBar(
-                                title = {
-                                    Text(text = "Pay with UPI")
-                                },
-                                navigationIcon = {
-                                    IconButton(onClick = {}) {
-                                        Icon(Icons.Filled.Face, "")
-                                    }
-                                },
-                            )
-                        },
-                        content = { padding ->
-                            Column(
-                                modifier = Modifier.fillMaxSize().padding(16.dp),
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                Spacer(modifier = Modifier.height(76.dp))
-                                TextField(
-                                    value = "value",
-                                    label = { Text(text = "label") },
-                                    onValueChange = {}
-                                )
-                                OutlinedTextField(
-                                    value = "value",
-                                    label = { Text("Name") },
-                                    onValueChange = {}
-                                )
-                                Button(modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(8.dp)
-                                    .height(52.dp),
-                                    shape = RoundedCornerShape(10.dp),
-                                    onClick = {
-                                        payUsingUpi(
-                                            "2.0",
-                                            "YOUR_UPI_ID",
-                                            "Rumit Name",
-                                            "Rumit note",
-                                        )
-
-                                    }) {
-                                    Text(
-                                        text = "Click here",
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight.Bold,
-                                        color = Color.White
-                                    )
-                                }
-                            }
-                        }
-                    )*/
                 }
             }
         }

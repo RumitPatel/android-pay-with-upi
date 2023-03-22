@@ -15,4 +15,6 @@
     <string name="err_upi">Enter UPI</string>
     <string name="err_name">Enter name</string>
     <string name="err_note">Enter your notes</string>
+
+    <string name="pay_now">Pay with UPI</string>
 </resources>
