@@ -1,20 +1,25 @@
 package com.rum.upipaymentapp.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.widget.Toast
 import androidx.annotation.StringRes
 
+@SuppressLint("ObsoleteSdkInt")
 fun Context.isConnectionAvailable(): Boolean {
-    val connectivityManager =
-        this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    if (connectivityManager != null) {
-        val netInfo = connectivityManager.activeNetworkInfo
-        if (netInfo != null && netInfo.isConnected && netInfo.isConnectedOrConnecting && netInfo.isAvailable) {
-            return true
+    (getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager).run {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return this.getNetworkCapabilities(this.activeNetwork)?.hasCapability(
+                NetworkCapabilities.NET_CAPABILITY_INTERNET
+            ) ?: false
+        } else {
+            (@Suppress("DEPRECATION")
+            return this.activeNetworkInfo?.isConnected ?: false)
         }
     }
-    return false
 }
 
 fun Context.toast(@StringRes messageRes: Int) {
