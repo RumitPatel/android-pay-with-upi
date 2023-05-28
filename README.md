@@ -1,6 +1,6 @@
 # android-pay-with-upi
 
-Receive payment without any third party payment gateway mediatore and extra charges.
+Receive payment with UPI only and without any third party payment gateway mediatore and extra charges.
 
 **Demo:**
 
