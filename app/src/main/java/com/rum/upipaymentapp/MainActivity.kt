@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.rum.upipaymentapp.ui.theme.UPIPaymentAppTheme
 import com.rum.upipaymentapp.utils.isConnectionAvailable
+import com.rum.upipaymentapp.utils.toast
 
 class MainActivity : ComponentActivity() {
 
@@ -35,6 +35,10 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun payUsingUpi(amount: String?, upiId: String?, name: String?, note: String?) {
+        if (!isConnectionAvailable()) {
+            toast("Internet connection is not available. Please check and try again")
+            return
+        }
 
         val uri = Uri.parse("upi://pay").buildUpon().appendQueryParameter("pa", upiId)
             .appendQueryParameter("pn", name).appendQueryParameter("tn", note)
@@ -51,11 +55,7 @@ class MainActivity : ComponentActivity() {
         if (null != chooser.resolveActivity(packageManager)) {
             upiChooserResultLauncher.launch(chooser)
         } else {
-            Toast.makeText(
-                this@MainActivity,
-                "No UPI app found, please install one to continue",
-                Toast.LENGTH_SHORT
-            ).show()
+            toast("No UPI app found, please install one to continue")
         }
     }
 
@@ -64,10 +64,10 @@ class MainActivity : ComponentActivity() {
             val data: Intent? = result.data
             if (Activity.RESULT_OK == result.resultCode || result.resultCode == 11) {
                 if (data != null) {
-                    val trxt = data.getStringExtra("response")
-                    Log.d("UPI", "onActivityResult: $trxt")
+                    val transactionResponse = data.getStringExtra("response")
+                    Log.d("UPI", "onActivityResult: $transactionResponse")
                     val dataList = ArrayList<String>()
-                    dataList.add(trxt.toString())
+                    dataList.add(transactionResponse.toString())
                     upiPaymentDataOperation(dataList)
                 } else {
                     Log.d("UPI", "onActivityResult: " + "Return data is null")
@@ -76,9 +76,8 @@ class MainActivity : ComponentActivity() {
                     upiPaymentDataOperation(dataList)
                 }
             } else {
-                Log.d(
-                    "UPI", "onActivityResult: " + "Return data is null"
-                ) //when user simply back without payment
+                //when user simply back without payment
+                Log.d("UPI", "onActivityResult: " + "Return data is null")
                 val dataList = ArrayList<String>()
                 dataList.add("nothing")
                 upiPaymentDataOperation(dataList)
@@ -110,23 +109,15 @@ class MainActivity : ComponentActivity() {
 
             if (status == "success") {
                 //Code to handle successful transaction here.
-                Toast.makeText(this@MainActivity, "Transaction successful.", Toast.LENGTH_SHORT)
-                    .show()
+                toast("Transaction successful.")
                 Log.d("UPI", "responseStr: $approvalRefNo")
             } else if ("Payment cancelled by user." == paymentCancel) {
-                Toast.makeText(this@MainActivity, "Payment cancelled by user.", Toast.LENGTH_SHORT)
-                    .show()
+                toast("Payment cancelled by user.")
             } else {
-                Toast.makeText(
-                    this@MainActivity, "Transaction failed.Please try again", Toast.LENGTH_SHORT
-                ).show()
+                toast("Transaction failed.Please try again")
             }
         } else {
-            Toast.makeText(
-                this@MainActivity,
-                "Internet connection is not available. Please check and try again",
-                Toast.LENGTH_SHORT
-            ).show()
+            toast("Internet connection is not available. Please check and try again")
         }
     }
 }
