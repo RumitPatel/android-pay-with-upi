@@ -64,10 +64,10 @@ class MainActivity : ComponentActivity() {
             val data: Intent? = result.data
             if (Activity.RESULT_OK == result.resultCode || result.resultCode == 11) {
                 if (data != null) {
-                    val trxt = data.getStringExtra("response")
-                    Log.d("UPI", "onActivityResult: $trxt")
+                    val transactionResponse = data.getStringExtra("response")
+                    Log.d("UPI", "onActivityResult: $transactionResponse")
                     val dataList = ArrayList<String>()
-                    dataList.add(trxt.toString())
+                    dataList.add(transactionResponse.toString())
                     upiPaymentDataOperation(dataList)
                 } else {
                     Log.d("UPI", "onActivityResult: " + "Return data is null")
